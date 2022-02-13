@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<modDesc descVersion="63">
+    <author>Xentro</author>
+    <version>1.0.0.0</version>
+    <title>
+        <en>XT-2</en>
+        <de>XT-2</de>
+    </title>
+    <description>
+        <en><![CDATA[XT-2
+Capacity: 46 1.25m, 34 1.5m, 26 1.8m
+Price: 16000 €
+]]>
+        </en>
+        <de><![CDATA[XT-2
+Capacity: PLENTY!
+Price: 16000 €
+]]>
+        </de>
+    </description>
+    <iconFilename>icon_xt2.dds</iconFilename>
+    <multiplayer supported="true" />
+
+    <storeItems>
+        <storeItem xmlFilename="xt2.xml"/>
+        <storeItem xmlFilename="xt2_autoLoader.xml"/>
+    </storeItems>
+    
+    <extraSourceFiles>
+        <sourceFile filename="scripts/events/AutoLoaderExtendedLoadObjectEvent.lua" />
+        <sourceFile filename="scripts/events/AutoLoaderExtendedSetHelperEvent.lua" />
+        <sourceFile filename="scripts/events/AutoLoaderExtendedSetModeEvent.lua" />
+        <sourceFile filename="scripts/events/AutoLoaderExtendedSetUnloadSideEvent.lua" />
+        <sourceFile filename="scripts/events/AutoLoaderExtendedShowMessageEvent.lua" />
+        <sourceFile filename="scripts/events/AutoLoaderExtendedSynchEvent.lua" />
+        <sourceFile filename="scripts/events/AutoLoaderExtendedUnloadStateEvent.lua" />
+    </extraSourceFiles>
+
+    <specializations>
+        <specialization name="autoLoaderExtended" className="AutoLoaderExtended" filename="scripts/AutoLoaderExtended.lua" />
+    </specializations>
+
+    <vehicleTypes>
+		<type name="autoLoaderExtendedTrailer" parent="trailer" filename="$dataS/scripts/vehicles/Vehicle.lua">
+			<specialization name="autoLoaderExtended"/>
+		</type>
+	</vehicleTypes>	
+
+    <l10n>
+        <text name="configuration_wall">
+    		<en>Separator</en>
+    		<de>Separator</de>
+    	</text>
+      
+        <text name="autoLoader_activate">
+    		<en>Activate auto loading</en>
+    	</text>
+        <text name="autoLoader_deactivate">
+    		<en>Deactivate auto loading</en>
+    	</text>
+        <text name="autoLoader_activate_unload">
+    		<en>Start unloading</en>
+    	</text>
+        <text name="autoLoader_deactivate_unload">
+    		<en>Stop unloading</en>
+    	</text>
+        <text name="autoLoader_confirm">
+    		<en>Confirm unload placement</en>
+    	</text>
+        <text name="autoLoader_confirm_1">
+    		<en>Unload objects here</en>
+    	</text>
+        <text name="autoLoader_unloadSide">
+    		<en>Unload side (%s)</en>
+    	</text>
+        <text name="autoLoader_warning_0">
+    		<en>Unloading area is colliding with something, unloading aren't allowed right now.</en>
+    	</text>
+        <text name="autoLoader_warning_1">
+    		<en>Object's have been unloaded by someone else, aborting unload!</en>
+    	</text>
+        <text name="autoLoader_warning_2">
+    		<en>Warning: You are getting too far from unload location, current distance %.1f meter, will abort at %d meters </en>
+    	</text>
+        <text name="autoLoader_warning_3">
+    		<en>Unload location is too far away, aborting unload!</en>
+    	</text>
+    </l10n>
+</modDesc>

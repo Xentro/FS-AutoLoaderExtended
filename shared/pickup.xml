@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<pickup>
+    <filename>shared/pickup.i3d</filename>
+	<trigger node="0" />
+	<helper node="1" offsetY="0">
+		<loading node="1|0" color="1 1 0" colorBlind="1 1 0" />
+		<full    node="1|1" color="1 0 0" colorBlind="0 0 1" />
+	</helper>
+</pickup>

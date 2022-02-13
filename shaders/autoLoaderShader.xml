@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CustomShader version="5">
+    <Parameters>
+        <Parameter name="colorMat"     target="colorMat"     type="float4" group="base"   defaultValue="1 1 1 1"  minValue = "0 0 0 0" maxValue = "1 1 1 1" />
+        <Parameter name="lightControl" target="lightControl" type="float3" group="light"   defaultValue="1 1 0"  minValue = "0 0 0" maxValue = "1 10 500" />
+        <Parameter name="pulse"        target="pulse"        type="float3" group="pulse"  defaultValue="3 1 5"  minValue = "0 0 0" maxValue = "50 50 500" />
+    </Parameters>
+    <UvUsages/>
+    <Variations>
+        <Variation name="additive" groups="base light">
+            <![CDATA[
+                #define GLOW
+                #define ADDITIVE_BLENDING
+            ]]>
+        </Variation>
+        <Variation name="additive_pulsating" groups="base light pulse">
+            <![CDATA[
+                #define GLOW
+                #define ADDITIVE_BLENDING
+                #define PULSATING
+            ]]>
+        </Variation>
+        <Variation name="temporary_object" groups="base">
+            <![CDATA[
+                #define TEMP
+            ]]>
+        </Variation>
+    </Variations>
+    <LodLevel startDistance="0" alphaForceMode="use">
+        <CodeInjections>
+            <CodeInjection position="CONFIG_DEFINES">
+                <![CDATA[
+                #if defined( ADDITIVE_BLENDING )
+                    #if defined( ALPHA_BLENDED )  // only for alpha blended materials
+                        #undef FOG_INSCATTERING   // only apply the fog extinction
+                        #define DISABLE_SPECULAR  // also remove specular
+                    #endif
+                #endif
+                ]]>
+            </CodeInjection>
+            <CodeInjection position="OBJECT_PARAMETERS">
+                <![CDATA[
+                    float4 colorMat;
+
+                    /*
+                        lightControl.x = Diffuse Visibility
+                        lightControl.y = Emission Visibility
+                        lightControl.z = 
+                    */
+                    float3 lightControl;
+
+                    #if defined(PULSATING)
+                        /*
+                            pulse.x = Pulse Speed
+                            pulse.y = Min pulse range
+                            pulse.z = Max pulse range
+                        */
+                        float3 pulse;
+                    #endif
+                ]]>
+            </CodeInjection>
+            <CodeInjection position="VS_OUTPUT">
+                <![CDATA[
+                    float mVisScale : TEXCOORDn;
+                ]]>
+            </CodeInjection>
+            <CodeInjection position="VS_END">
+                <![CDATA[
+                    Out.mVisScale = 1.0;
+
+                    #if defined(PULSATING)
+                        Out.mVisScale = cos( object.pulse.x * cTime_s )* 0.5 + 0.5; // 0..1
+                    #endif
+
+                    #if defined(TEMP)
+                        Out.mVisScale = 0.5;
+                    #endif
+                ]]>
+            </CodeInjection>
+            <CodeInjection position="FS_GLOBALS">
+                <![CDATA[
+                    float3 lightControl;
+                    float3 gDiffuseColor;
+                    float4 gEmissiveColor;
+                ]]>
+            </CodeInjection>
+            <CodeInjection position="START_FS">
+                <![CDATA[
+                    globals.lightControl = object.lightControl;
+                    globals.gDiffuseColor  = float3(1, 1, 1);
+                    globals.gEmissiveColor = float4(1, 1, 1, 1);
+
+                    // Environment Conditions control
+                    globals.lightControl.x *= object.visibility;
+
+                    #if defined(ALBEDO_MAP)
+                        float4 mBaseMap = tex2D(baseMap, In.vs.defaultTexCoords).xyzw;
+
+                        globals.gDiffuseColor = mBaseMap.rgb;
+                        globals.gEmissiveColor = mBaseMap.rgba;
+                    #endif
+
+
+                    #if defined(GLOW)
+                        globals.gDiffuseColor.rgb *= object.colorMat.rgb;
+                        globals.gEmissiveColor.rgb *= object.colorMat.rgb;
+                    #endif
+                ]]>
+            </CodeInjection>
+            <CodeInjection position="POST_DIFFUSE_COLOR_FS">
+                <![CDATA[
+                    #if defined(GLOW)
+                        if (In.vs.defaultTexCoords.x > 0.0) {
+                            diffuseColor = globals.gDiffuseColor.rgb;
+                            diffuseColor *= globals.lightControl.x;
+                        }
+                    #endif
+
+                    #if defined(TEMP)
+                        diffuseColor = globals.gDiffuseColor.rgb;
+                        diffuseColor *= object.colorMat.a;
+                    #endif
+                ]]>
+            </CodeInjection>
+            <CodeInjection position="EMISSIVE_FS">
+                <![CDATA[
+                    #if defined(GLOW)
+                        if (In.vs.defaultTexCoords.x > 0.0) {
+                            #if defined(EMISSIVE_MAP)
+                                emissiveColor.rgb *= globals.gEmissiveColor.xyz;
+                            #else
+                                emissiveColor.rgb = globals.gEmissiveColor.xyz;
+                            #endif
+
+                            float mLightControl = globals.lightControl.y;
+
+                            #if !defined(GLOW)
+                                mLightControl = 0;
+                            #endif
+
+                            #if GPU_PROFILE < GPU_PROFILE_MEDIUM
+                                mLightControl = saturate(mLightControl);
+                            #endif
+                            
+                            emissiveColor *= mLightControl;
+                            emissiveColor *= globals.gEmissiveColor.w;
+                        }
+                    #endif
+                ]]>
+            </CodeInjection>
+            <CodeInjection position="POST_GLOSS_COLOR_FS">
+                <![CDATA[
+                    #if defined(DISABLE_SPECULAR)
+                        #if defined(SPECULAR)
+                            #undef SPECULAR
+                        #endif
+                    #endif
+                ]]>
+            </CodeInjection>
+            <CodeInjection position="ALPHA_FS">
+                <![CDATA[
+                    #if defined(GLOW)
+                        #if defined(PULSATING)
+                            alpha = lerp(object.pulse.y * alpha, object.pulse.z * alpha, In.vs.mVisScale);
+                        #endif
+                        #if defined(ALPHA_BLENDED)
+                            reflectingLightingScale = alpha;
+                        #endif
+                    #endif
+
+                    #if defined(TEMP)
+
+                        #if defined(ALPHA_MAP)
+                            alpha = tex2D(alphaMap, ALBEDO_MAP_TEXCOORDS).r;
+                        #endif
+                        // alpha = object.colorMat.a;
+                        reflectingLightingScale = object.colorMat.a;
+                    #endif
+                ]]>
+            </CodeInjection>
+            <CodeInjection position="FINAL_POS_FS">
+                <![CDATA[
+                    #if defined(ADDITIVE_BLENDING)
+                        #if defined(ALPHA_BLENDED)
+                            oColor.a = 0;
+                        #endif
+                    #endif
+                    #if defined(TEMP)
+                        // oColor.rgb = float3(object.colorMat.r, object.colorMat.g, object.colorMat.b);
+                        oColor *= object.colorMat.a;
+                    #endif
+                ]]>
+            </CodeInjection>
+        </CodeInjections>
+    </LodLevel>
+</CustomShader>

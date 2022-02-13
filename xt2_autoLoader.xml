@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<vehicle type="autoLoaderExtendedTrailer" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://validation.gdn.giants-software.com/xml/fs22/vehicle.xsd">
+	<annotation>Copyright (C) Xentro.se, All Rights Reserved.</annotation>
+	
+    <!-- wheelChockSupport01, wheelChock02 -->
+
+    <storeData>
+        <name>XT-2 - Auto Loader</name>
+        <specs>
+            <neededPower>150</neededPower>
+        </specs>
+        <functions>
+            <function>$l10n_function_baleTrailer</function>
+        </functions>
+        <image>store_xt2.png</image>
+        <price>16000</price>
+        <lifetime>600</lifetime>
+        <rotation>0</rotation>
+        <brand>LIZARD</brand>
+        <category>baleLoaders</category>
+    </storeData>
+	
+    <base>
+        <typeDesc>$l10n_typeDesc_tipper</typeDesc>
+        <filename>xt2.i3d</filename>
+        <size width="2.75" length="17.2"/>
+        <components>
+            <component centerOfMass="0 0.6 0"      solverIterationCount="10" mass="1000" /><!-- Body -->
+            <component centerOfMass="0 0 0.1"      solverIterationCount="15" mass="1500" /><!-- Turning -->
+            <component centerOfMass="0 0 1.5"      solverIterationCount="20" mass="300" /> <!-- Drawbar -->
+            <component centerOfMass="0 0.5 -0.01"  solverIterationCount="20" mass="850" /> <!-- Axle Left -->
+            <component centerOfMass="0 0.5 -0"     solverIterationCount="20" mass="850" /> <!-- Axle Right -->
+			
+			<joint component1="1" component2="2" node="frontCompJoint"      rotLimit="0 120 0" transLimit="0 0 0" />
+			<joint component1="2" component2="3" node="drawbarCompJoint"    rotLimit="40 0 0"  transLimit="0 0 0" />
+			<joint component1="1" component2="4" node="axleCompJoint_left"  rotLimit="0 0 22"  transLimit="0 0 0" />
+			<joint component1="1" component2="5" node="axleCompJoint_right" rotLimit="0 0 22"  transLimit="0 0 0" />
+        </components>
+        <schemaOverlay attacherJointPosition="0 0" name="IMPLEMENT" />
+    </base>
+	
+    <wheels>
+        <wheelConfigurations>
+            <wheelConfiguration name="$l10n_configuration_valueDefault" price="0" brand="TRELLEBORG" saveId="TRELLEBORG_DEFAULT">
+                <wheels>
+                    <wheel filename="$data/shared/wheels/tires/trelleborg/TwinRadial/600_50R22_5.xml" isLeft="true" hasTireTracks="true" hasParticles="true" >
+                        <physics tipOcclusionAreaGroupId="1" restLoad="1.05" repr="wheelNode_1_LeftFront" forcePointRatio="0.5" initialCompression="30" suspTravel="0.07" spring="200" damper="100" yOffset="0.015" />
+                    </wheel>
+                    <wheel filename="$data/shared/wheels/tires/trelleborg/TwinRadial/600_50R22_5.xml" isLeft="false" hasTireTracks="true" hasParticles="true" >
+                        <physics tipOcclusionAreaGroupId="1" restLoad="1.05" repr="wheelNode_2_RightFront" forcePointRatio="0.5" initialCompression="30" suspTravel="0.07" spring="200" damper="100" yOffset="0.015" />
+                    </wheel>
+                    <wheel filename="$data/shared/wheels/tires/trelleborg/TwinRadial/560_60R22_5.xml" isLeft="true" hasTireTracks="true" hasParticles="true" >
+                        <physics tipOcclusionAreaGroupId="1" restLoad="0.70" repr="wheelNode_3_LeftMiddle" forcePointRatio="0.5" initialCompression="30" suspTravel="0.03" spring="200" damper="100" yOffset="0.015" maxLatStiffness="60" maxLatStiffnessLoad="4" maxLongStiffness="50" frictionScale="2"/>
+                    </wheel>
+                    <wheel filename="$data/shared/wheels/tires/trelleborg/TwinRadial/560_60R22_5.xml" isLeft="true" hasTireTracks="true" hasParticles="true" >
+                        <physics tipOcclusionAreaGroupId="1" restLoad="0.70" repr="wheelNode_4_LeftBack" forcePointRatio="0.5" initialCompression="30" suspTravel="0.03" spring="200" damper="100" yOffset="0.015" maxLatStiffness="60" maxLatStiffnessLoad="4" maxLongStiffness="50" frictionScale="2" />
+                    </wheel>
+                    <wheel filename="$data/shared/wheels/tires/trelleborg/TwinRadial/560_60R22_5.xml" isLeft="false" hasTireTracks="true" hasParticles="true" >
+                        <physics tipOcclusionAreaGroupId="1" restLoad="0.70" repr="wheelNode_5_RightMiddle" forcePointRatio="0.5" initialCompression="30" suspTravel="0.03" spring="200" damper="100" yOffset="0.015" maxLatStiffness="60" maxLatStiffnessLoad="4" maxLongStiffness="50" frictionScale="2" />
+                    </wheel>
+                    <wheel filename="$data/shared/wheels/tires/trelleborg/TwinRadial/560_60R22_5.xml" isLeft="false" hasTireTracks="true" hasParticles="true" >
+                        <physics tipOcclusionAreaGroupId="1" restLoad="0.70" repr="wheelNode_6_RightBack" forcePointRatio="0.5" initialCompression="30" suspTravel="0.03" spring="200" damper="100" yOffset="0.015" maxLatStiffness="60" maxLatStiffnessLoad="4" maxLongStiffness="50" frictionScale="2"  />
+                    </wheel>
+                </wheels>
+            </wheelConfiguration>
+
+            <wheelConfiguration name="$l10n_configuration_valueDefault" price="0" brand="BKT" saveId="BKT_DEFAULT">
+                <wheels baseConfig="TRELLEBORG_DEFAULT">
+                    <wheel filename="$data/shared/wheels/tires/bkt/ridemaxFL693M/600_50R22_5.xml"/>
+                    <wheel filename="$data/shared/wheels/tires/bkt/ridemaxFL693M/600_50R22_5.xml"/>
+                    <wheel filename="$data/shared/wheels/tires/bkt/ridemaxFL693M/560_60R22_5.xml"/>
+                    <wheel filename="$data/shared/wheels/tires/bkt/ridemaxFL693M/560_60R22_5.xml"/>
+                    <wheel filename="$data/shared/wheels/tires/bkt/ridemaxFL693M/560_60R22_5.xml"/>
+                    <wheel filename="$data/shared/wheels/tires/bkt/ridemaxFL693M/560_60R22_5.xml"/>
+                </wheels>
+            </wheelConfiguration>
+
+            <wheelConfiguration name="$l10n_configuration_valueDefault" price="0" brand="VREDESTEIN" saveId="VREDESTEIN_DEFAULT">
+                <wheels baseConfig="TRELLEBORG_DEFAULT">
+                    <wheel filename="$data/shared/wheels/tires/vredestein/flotationTrac/600_50R22_5.xml">
+                        <physics yOffset="0.017"/>
+                    </wheel>
+                    <wheel filename="$data/shared/wheels/tires/vredestein/flotationTrac/600_50R22_5.xml">
+                        <physics yOffset="0.017"/>
+                    </wheel>
+                    <wheel filename="$data/shared/wheels/tires/vredestein/flotationTrac/560_60R22_5.xml">
+                        <physics yOffset="0.032"/>
+                    </wheel>
+                    <wheel filename="$data/shared/wheels/tires/vredestein/flotationTrac/560_60R22_5.xml">
+                        <physics yOffset="0.032"/>
+                    </wheel>
+                    <wheel filename="$data/shared/wheels/tires/vredestein/flotationTrac/560_60R22_5.xml">
+                        <physics yOffset="0.032"/>
+                    </wheel>
+                    <wheel filename="$data/shared/wheels/tires/vredestein/flotationTrac/560_60R22_5.xml">
+                        <physics yOffset="0.032"/>
+                    </wheel>
+                </wheels>
+            </wheelConfiguration>
+        </wheelConfigurations>
+		
+		<rimColor material="18">SHARED_WHITE1</rimColor>
+        <hubs>
+            <color0 material="0">0.037 0.037 0.037 0</color0>
+            <color1 material="0">0.037 0.037 0.037 0</color1>
+            <hub linkNode="wheelNode_1_LeftFront"   filename="$data/shared/wheels/hubs/hub_n10_5.xml" isLeft="true"  scale="0.35 0.35 0.35" />
+            <hub linkNode="wheelNode_2_RightFront"  filename="$data/shared/wheels/hubs/hub_n10_5.xml" isLeft="false" scale="0.35 0.35 0.35" />
+            <hub linkNode="wheelNode_3_LeftMiddle"  filename="$data/shared/wheels/hubs/hub_n10_5.xml" isLeft="true"  scale="0.35 0.35 0.35" />
+            <hub linkNode="wheelNode_4_LeftBack"    filename="$data/shared/wheels/hubs/hub_n10_5.xml" isLeft="true"  scale="0.35 0.35 0.35" />
+            <hub linkNode="wheelNode_5_RightMiddle" filename="$data/shared/wheels/hubs/hub_n10_5.xml" isLeft="false" scale="0.35 0.35 0.35" />
+            <hub linkNode="wheelNode_6_RightBack"   filename="$data/shared/wheels/hubs/hub_n10_5.xml" isLeft="false" scale="0.35 0.35 0.35" />
+        </hubs>
+    </wheels>
+	
+    <attachable>
+        <inputAttacherJoints>
+            <inputAttacherJoint node="attacherJoint" jointType="trailer" rootNode="drawbarComponent" attacherHeight="0.5" />
+        </inputAttacherJoints>
+        <brakeForce force="0.1"/>
+    </attachable>
+	
+	<lights>
+		<sharedLight linkNode="whiteRound_01"  filename="$data/shared/assets/reflectors/lizard/whiteRound_01.xml" />
+        <sharedLight linkNode="whiteRound_02"  filename="$data/shared/assets/reflectors/lizard/whiteRound_01.xml" />
+        <sharedLight linkNode="yellowRound_01" filename="$data/shared/assets/reflectors/lizard/yellowRound_02.xml" />
+        <sharedLight linkNode="yellowRound_02" filename="$data/shared/assets/reflectors/lizard/yellowRound_02.xml" />
+        <sharedLight linkNode="bigTriangle"    filename="$data/shared/assets/reflectors/lizard/bigTriangle.xml" />
+        <sharedLight linkNode="rearLightLeft"  filename="$data/shared/assets/lights/lizard/rearLight05_left.xml" />
+        <sharedLight linkNode="rearLightRight" filename="$data/shared/assets/lights/lizard/rearLight05_right.xml" />
+	</lights>
+	
+    <tensionBelts>
+        <tensionBeltsConfigurations>
+            <tensionBeltsConfiguration>
+                <tensionBelts linkNode="tensionBelts" jointNode="xt2_main_component" maxEdgeLength="0.1" geometryBias="0.01" ratchetPosition="0.2" defaultOffset="0.1" defaultOffsetSide="0.1" defaultHeight="4" activationTrigger="beltActivationTrigger">
+                    <tensionBelt startNode="startPoint01" endNode="startPoint01End" >
+                        <intersectionNode node="tensionBelt01Intersection01"/>
+                        <intersectionNode node="tensionBelt01Intersection02"/>
+                        <intersectionNode node="tensionBelt01Intersection03"/>
+                        <intersectionNode node="tensionBelt01Intersection04"/>
+                    </tensionBelt>
+					<tensionBelt startNode="startPoint02" endNode="startPoint02End" >
+                        <intersectionNode node="tensionBelt02Intersection01"/>
+                        <intersectionNode node="tensionBelt02Intersection02"/>
+                        <intersectionNode node="tensionBelt02Intersection03"/>
+                        <intersectionNode node="tensionBelt02Intersection04"/>
+                    </tensionBelt>
+					<tensionBelt startNode="startPoint03" endNode="startPoint03End" >
+                        <intersectionNode node="tensionBelt03Intersection01"/>
+                        <intersectionNode node="tensionBelt03Intersection02"/>
+                        <intersectionNode node="tensionBelt03Intersection03"/>
+                        <intersectionNode node="tensionBelt03Intersection04"/>
+                    </tensionBelt>
+					<tensionBelt startNode="startPoint04" endNode="startPoint04End" >
+                        <intersectionNode node="tensionBelt04Intersection01"/>
+                        <intersectionNode node="tensionBelt04Intersection02"/>
+                        <intersectionNode node="tensionBelt04Intersection03"/>
+                        <intersectionNode node="tensionBelt04Intersection04"/>
+                    </tensionBelt>
+					<tensionBelt startNode="startPoint05" endNode="startPoint05End" offsetLeft="1" offsetRight="1" >
+                        <intersectionNode node="tensionBelt05Intersection01"/>
+                        <intersectionNode node="tensionBelt05Intersection02"/>
+                        <intersectionNode node="tensionBelt05Intersection03"/>
+                        <intersectionNode node="tensionBelt05Intersection04"/>
+                    </tensionBelt>
+					<tensionBelt startNode="startPoint06" endNode="startPoint06End" >
+                        <intersectionNode node="tensionBelt06Intersection01"/>
+                        <intersectionNode node="tensionBelt06Intersection02"/>
+                        <intersectionNode node="tensionBelt06Intersection03"/>
+                        <intersectionNode node="tensionBelt06Intersection04"/>
+                    </tensionBelt>
+					<tensionBelt startNode="startPoint09" endNode="startPoint09End" offsetRight="0.3" >
+                        <intersectionNode node="tensionBelt09Intersection01"/>
+                        <intersectionNode node="tensionBelt09Intersection02"/>
+                        <intersectionNode node="tensionBelt09Intersection03"/>
+                        <intersectionNode node="tensionBelt09Intersection04"/>
+                    </tensionBelt>
+                    <tensionBelt startNode="startPoint07" endNode="startPoint07End" offset="-0.2" offsetLeft="0.65" offsetRight="0.3">
+                        <intersectionNode node="tensionBelt07Intersection01"/>
+                        <intersectionNode node="tensionBelt07Intersection02"/>
+                        <intersectionNode node="tensionBelt07Intersection03"/>
+                        <intersectionNode node="tensionBelt07Intersection04"/>
+                        <intersectionNode node="tensionBelt07Intersection05"/>
+                        <intersectionNode node="tensionBelt07Intersection06"/>
+                        <intersectionNode node="tensionBelt07Intersection07"/>
+                    </tensionBelt>
+					<tensionBelt startNode="startPoint08" endNode="startPoint08End" offset="-0.2" offsetLeft="0.3" offsetRight="0.65">
+                        <intersectionNode node="tensionBelt08Intersection01"/>
+                        <intersectionNode node="tensionBelt08Intersection02"/>
+                        <intersectionNode node="tensionBelt08Intersection03"/>
+                        <intersectionNode node="tensionBelt08Intersection04"/>
+                        <intersectionNode node="tensionBelt08Intersection05"/>
+                        <intersectionNode node="tensionBelt08Intersection06"/>
+                        <intersectionNode node="tensionBelt08Intersection07"/>
+                    </tensionBelt>
+
+                    <sounds>
+                        <addBelt    template="beltOpen" />
+                        <removeBelt template="beltClose" />
+                    </sounds>
+                </tensionBelts>
+            </tensionBeltsConfiguration>
+        </tensionBeltsConfigurations>
+    </tensionBelts>
+
+    <fillUnit>
+        <fillUnitConfigurations>
+            <fillUnitConfiguration>
+                <fillUnits>
+                    <fillUnit unitTextOverride="$l10n_unit_bale" fillTypes="ROUNDBALE" capacity="1" showCapacityInShop="false" showOnHud="false"/>
+                </fillUnits>
+            </fillUnitConfiguration>
+        </fillUnitConfigurations>
+    </fillUnit>
+	
+    <foliageBending>
+        <bendingNode minX="-1.35" maxX="1.35" minZ="-6.9" maxZ="5" yOffset="0.48" />
+        <bendingNode minX="-0.25" maxX="0.25" minZ="-0.09" maxZ="2.8" yOffset="-0.2" node="frontComponent"/>
+    </foliageBending>
+	
+    <ai>
+		<allowTurnBackward value="false"/>
+		<turningRadiusLimitation radius="15"/>
+        <agentAttachment jointNode="attacherJoint" rotCenterWheelIndices="1 2" width="2.7" height="2" length="2.7" lengthOffset="0" hasCollision="false"/>
+        <agentAttachment jointNode="frontCompJoint" rotCenterWheelIndices="4 6" width="2.7" height="3.8" length="14" lengthOffset="3"/>
+    </ai>
+	 
+	<designConfigurations>
+        <designConfiguration name="$l10n_configuration_valueDefault" price="0">
+            <objectChange node="configWall" visibilityActive="false" />
+            <objectChange node="colPartWall_01" compoundChildActive="false" />
+            <objectChange node="colPartWall_02" compoundChildActive="false" />
+            <objectChange node="colPartWall_03" compoundChildActive="false" />
+            <objectChange node="colPartWall_04" compoundChildActive="false" />
+            <objectChange node="colPartWall_05" compoundChildActive="false" />
+            <objectChange node="colPartWall_06" compoundChildActive="false" />
+            <objectChange node="colPartWall_07" compoundChildActive="false" />
+            <objectChange node="colPartWall_08" compoundChildActive="false" />
+            <objectChange node="colPartWall_09" compoundChildActive="false" />
+            <objectChange node="colPartWall_10" compoundChildActive="false" />
+        </designConfiguration>
+        <designConfiguration name="$l10n_configuration_wall" price="1000">
+            <objectChange node="configWall" visibilityActive="true" />
+            <objectChange node="colPartWall_01" compoundChildActive="true" />
+            <objectChange node="colPartWall_02" compoundChildActive="true" />
+            <objectChange node="colPartWall_03" compoundChildActive="true" />
+            <objectChange node="colPartWall_04" compoundChildActive="true" />
+            <objectChange node="colPartWall_05" compoundChildActive="true" />
+            <objectChange node="colPartWall_06" compoundChildActive="true" />
+            <objectChange node="colPartWall_07" compoundChildActive="true" />
+            <objectChange node="colPartWall_08" compoundChildActive="true" />
+            <objectChange node="colPartWall_09" compoundChildActive="true" />
+            <objectChange node="colPartWall_10" compoundChildActive="true" />
+        </designConfiguration>
+    </designConfigurations>
+	
+    <wearable wearDuration="480" workMultiplier="5" fieldMultiplier="2"/>
+    <washable dirtDuration="90" washDuration="1" workMultiplier="3" fieldMultiplier="2"/>
+	
+    <autoLoader useTensionBelts="true" maxUnloadDistance="7" allowBaleToSetTime="250" unloadTime="150">
+        <pickup linkNode="leftPickup"  filename="shared/pickup.xml" />
+        <pickup linkNode="rightPickup" filename="shared/pickup.xml" />
+
+        <!-- Type is checking the xml file name on object -->
+        <loadSpace type="roundBale125" nodeToChildren="roundBale125"  checkSize="0.66 0.66 1" />
+        <loadSpace type="roundBale150" nodeToChildren="roundBale150"  checkSize="0.80 0.80 1" />
+        <loadSpace type="roundBale180" nodeToChildren="roundBale180"  checkSize="1.05 1.05 1" />
+        <loadSpace type="squareBale"   nodeToChildren="squareBale240" checkSize="0.78 0.73 1.5" />
+
+        <unloadTrigger node="unloadTrigger" />
+
+        <unloadSide name="$l10n_info_tipSideLeft"  start="leftStartUnloadSpace"  isLeft="true"  offsetY="0.3" />
+        <unloadSide name="$l10n_info_tipSideRight" start="rightStartUnloadSpace" isLeft="false" offsetY="0.3" />
+
+        <unload type="roundBale"  width="6" height="3" />
+        <unload type="squareBale" width="5" height="4" />
+    </autoLoader>
+
+    <i3dMappings>
+        <i3dMapping id="xt2_main_component" node="0>" />
+        <i3dMapping id="xt2_vis" node="0>0" />
+        <i3dMapping id="decal" node="0>0|0" />
+        <i3dMapping id="tensionBelts" node="0>0|1" />
+        <i3dMapping id="startPoint01" node="0>0|1|0" />
+        <i3dMapping id="startPoint01End" node="0>0|1|0|0" />
+        <i3dMapping id="tensionBelt01Intersection01" node="0>0|1|0|1" />
+        <i3dMapping id="tensionBelt01Intersection02" node="0>0|1|0|2" />
+        <i3dMapping id="tensionBelt01Intersection03" node="0>0|1|0|3" />
+        <i3dMapping id="tensionBelt01Intersection04" node="0>0|1|0|4" />
+        <i3dMapping id="startPoint02" node="0>0|1|1" />
+        <i3dMapping id="startPoint02End" node="0>0|1|1|0" />
+        <i3dMapping id="tensionBelt02Intersection01" node="0>0|1|1|1" />
+        <i3dMapping id="tensionBelt02Intersection02" node="0>0|1|1|2" />
+        <i3dMapping id="tensionBelt02Intersection03" node="0>0|1|1|3" />
+        <i3dMapping id="tensionBelt02Intersection04" node="0>0|1|1|4" />
+        <i3dMapping id="startPoint03" node="0>0|1|2" />
+        <i3dMapping id="startPoint03End" node="0>0|1|2|0" />
+        <i3dMapping id="tensionBelt03Intersection01" node="0>0|1|2|1" />
+        <i3dMapping id="tensionBelt03Intersection02" node="0>0|1|2|2" />
+        <i3dMapping id="tensionBelt03Intersection03" node="0>0|1|2|3" />
+        <i3dMapping id="tensionBelt03Intersection04" node="0>0|1|2|4" />
+        <i3dMapping id="startPoint04" node="0>0|1|3" />
+        <i3dMapping id="startPoint04End" node="0>0|1|3|0" />
+        <i3dMapping id="tensionBelt04Intersection01" node="0>0|1|3|1" />
+        <i3dMapping id="tensionBelt04Intersection02" node="0>0|1|3|2" />
+        <i3dMapping id="tensionBelt04Intersection03" node="0>0|1|3|3" />
+        <i3dMapping id="tensionBelt04Intersection04" node="0>0|1|3|4" />
+        <i3dMapping id="startPoint05" node="0>0|1|4" />
+        <i3dMapping id="startPoint05End" node="0>0|1|4|0" />
+        <i3dMapping id="tensionBelt05Intersection01" node="0>0|1|4|1" />
+        <i3dMapping id="tensionBelt05Intersection02" node="0>0|1|4|2" />
+        <i3dMapping id="tensionBelt05Intersection03" node="0>0|1|4|3" />
+        <i3dMapping id="tensionBelt05Intersection04" node="0>0|1|4|4" />
+        <i3dMapping id="startPoint06" node="0>0|1|5" />
+        <i3dMapping id="startPoint06End" node="0>0|1|5|0" />
+        <i3dMapping id="tensionBelt06Intersection01" node="0>0|1|5|1" />
+        <i3dMapping id="tensionBelt06Intersection02" node="0>0|1|5|2" />
+        <i3dMapping id="tensionBelt06Intersection03" node="0>0|1|5|3" />
+        <i3dMapping id="tensionBelt06Intersection04" node="0>0|1|5|4" />
+        <i3dMapping id="startPoint07" node="0>0|1|6" />
+        <i3dMapping id="startPoint07End" node="0>0|1|6|0" />
+        <i3dMapping id="tensionBelt07Intersection01" node="0>0|1|6|1" />
+        <i3dMapping id="tensionBelt07Intersection02" node="0>0|1|6|2" />
+        <i3dMapping id="tensionBelt07Intersection03" node="0>0|1|6|3" />
+        <i3dMapping id="tensionBelt07Intersection04" node="0>0|1|6|4" />
+        <i3dMapping id="tensionBelt07Intersection05" node="0>0|1|6|5" />
+        <i3dMapping id="tensionBelt07Intersection06" node="0>0|1|6|6" />
+        <i3dMapping id="tensionBelt07Intersection07" node="0>0|1|6|7" />
+        <i3dMapping id="startPoint08" node="0>0|1|7" />
+        <i3dMapping id="startPoint08End" node="0>0|1|7|0" />
+        <i3dMapping id="tensionBelt08Intersection01" node="0>0|1|7|1" />
+        <i3dMapping id="tensionBelt08Intersection02" node="0>0|1|7|2" />
+        <i3dMapping id="tensionBelt08Intersection03" node="0>0|1|7|3" />
+        <i3dMapping id="tensionBelt08Intersection04" node="0>0|1|7|4" />
+        <i3dMapping id="tensionBelt08Intersection05" node="0>0|1|7|5" />
+        <i3dMapping id="tensionBelt08Intersection06" node="0>0|1|7|6" />
+        <i3dMapping id="tensionBelt08Intersection07" node="0>0|1|7|7" />
+        <i3dMapping id="startPoint09" node="0>0|1|8" />
+        <i3dMapping id="startPoint09End" node="0>0|1|8|0" />
+        <i3dMapping id="tensionBelt09Intersection01" node="0>0|1|8|1" />
+        <i3dMapping id="tensionBelt09Intersection02" node="0>0|1|8|2" />
+        <i3dMapping id="tensionBelt09Intersection03" node="0>0|1|8|3" />
+        <i3dMapping id="tensionBelt09Intersection04" node="0>0|1|8|4" />
+        <i3dMapping id="bigTriangle" node="0>0|2|0" />
+        <i3dMapping id="yellowRound_01" node="0>0|2|1" />
+        <i3dMapping id="yellowRound_02" node="0>0|2|2" />
+        <i3dMapping id="whiteRound_01" node="0>0|2|3" />
+        <i3dMapping id="whiteRound_02" node="0>0|2|4" />
+        <i3dMapping id="rearLightLeft" node="0>0|2|5" />
+        <i3dMapping id="rearLightRight" node="0>0|2|6" />
+        <i3dMapping id="configWall" node="0>1|0" />
+        <i3dMapping id="colPartWall_01" node="0>1|0|1" />
+        <i3dMapping id="colPartWall_02" node="0>1|0|2" />
+        <i3dMapping id="colPartWall_03" node="0>1|0|3" />
+        <i3dMapping id="colPartWall_04" node="0>1|0|4" />
+        <i3dMapping id="colPartWall_05" node="0>1|0|5" />
+        <i3dMapping id="colPartWall_06" node="0>1|0|6" />
+        <i3dMapping id="colPartWall_07" node="0>1|0|7" />
+        <i3dMapping id="colPartWall_08" node="0>1|0|8" />
+        <i3dMapping id="colPartWall_09" node="0>1|0|9" />
+        <i3dMapping id="colPartWall_10" node="0>1|0|10" />
+        <i3dMapping id="beltActivationTrigger" node="0>4" />
+        <i3dMapping id="leftPickup" node="0>5" />
+        <i3dMapping id="rightPickup" node="0>6" />
+        <i3dMapping id="roundBale125" node="0>7|0" />
+        <i3dMapping id="roundBale150" node="0>7|1" />
+        <i3dMapping id="roundBale180" node="0>7|2" />
+        <i3dMapping id="squareBale240" node="0>7|3" />
+        <i3dMapping id="unloadTrigger" node="0>8|0" />
+        <i3dMapping id="leftStartUnloadSpace" node="0>8|1" />
+        <i3dMapping id="rightStartUnloadSpace" node="0>8|2" />
+        <i3dMapping id="frontComponent" node="1>" />
+        <i3dMapping id="frontCompJoint" node="1>1" />
+        <i3dMapping id="wheelNode_1_LeftFront" node="1>2" />
+        <i3dMapping id="wheelNode_2_RightFront" node="1>3" />
+        <i3dMapping id="drawbarComponent" node="2>" />
+        <i3dMapping id="attacherJoint" node="2>1" />
+        <i3dMapping id="drawbarCompJoint" node="2>2|0" />
+        <i3dMapping id="axleCompJoint_left" node="3>2" />
+        <i3dMapping id="wheelNode_3_LeftMiddle" node="3>3" />
+        <i3dMapping id="wheelNode_4_LeftBack" node="3>4" />
+        <i3dMapping id="axleCompJoint_right" node="4>2" />
+        <i3dMapping id="wheelNode_5_RightMiddle" node="4>3" />
+        <i3dMapping id="wheelNode_6_RightBack" node="4>4" />
+    </i3dMappings>
+</vehicle>
