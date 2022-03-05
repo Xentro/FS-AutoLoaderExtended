@@ -257,24 +257,56 @@
     <wearable wearDuration="480" workMultiplier="5" fieldMultiplier="2"/>
     <washable dirtDuration="90" washDuration="1" workMultiplier="3" fieldMultiplier="2"/>
 	
+
+    <!--
+        useTensionBelts    = automatically mount tension belts
+        maxUnloadDistance  = how far we can move vehicle from unload location before aborting unload
+        allowBaleToSetTime = how long after loading object before strapping load
+        unloadTime         = unloading time between objects
+
+        - optional -
+        unloadText         = unload text, default "autoLoader_unloadSide"
+    -->
     <autoLoader useTensionBelts="true" maxUnloadDistance="7" allowBaleToSetTime="250" unloadTime="150">
         <pickup linkNode="leftPickup"  filename="shared/pickup.xml" />
         <pickup linkNode="rightPickup" filename="shared/pickup.xml" />
 
-        <!-- Type is checking the xml file name on object -->
+        <!-- 
+            type           = comparing the xml filename on object if anything of it matches
+            nodeToChildren = this node has all our placement nodes stored in it
+            checkSize      = how big the "trigger" box should be, used to check if space is empty as well as find th object upon unloading.
+                                - too big   = no space found to load object and or too many objects unloaded per cycle
+                                - too small = objects can collide upon loading depending on placement of node
+        -->
         <loadSpace type="roundBale125" nodeToChildren="roundBale125"  checkSize="0.66 0.66 1" />
         <loadSpace type="roundBale150" nodeToChildren="roundBale150"  checkSize="0.80 0.80 1" />
         <loadSpace type="roundBale180" nodeToChildren="roundBale180"  checkSize="1.05 1.05 1" />
         <loadSpace type="squareBale"   nodeToChildren="squareBale240" checkSize="0.78 0.73 1.5" />
 
+        <!--
+
+        -->
         <unloadTrigger node="unloadTrigger" />
 
+        <!--
+            name    = l10n text, I'm using default text 
+            start   = needs to be located at front 
+            isLeft  = this affect how the unload will handle its calculation
+            offsetY = how far above "start" it should place object
+        -->
         <unloadSide name="$l10n_info_tipSideLeft"  start="leftStartUnloadSpace"  isLeft="true"  offsetY="0.3" />
         <unloadSide name="$l10n_info_tipSideRight" start="rightStartUnloadSpace" isLeft="false" offsetY="0.3" />
 
+        <!-- 
+            type   = comparing the xml filename on object if anything of it matches
+            width  = how width we are allowed to stack objects
+            height = how high we are allowed to stack objects
+        -->
         <unload type="roundBale"  width="6" height="3" />
         <unload type="squareBale" width="5" height="4" />
+        <unload type="pallet" width="5" height="4" />
     </autoLoader>
+
 
     <i3dMappings>
         <i3dMapping id="xt2_main_component" node="0>" />

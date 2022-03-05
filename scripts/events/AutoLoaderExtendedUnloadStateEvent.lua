@@ -170,7 +170,7 @@ function AutoLoaderExtendedUnloadStateEvent:run(connection)
             if type.isBale then
                 objectNode, sharedLoadRequestId = AutoLoaderExtended.createDummyBale(self.object.xmlFilename, self.object.fillType, self.object.wrappingState, self.object.wrappingColor)
             elseif type.isPallet then
-                -- todo - load temp pallet
+                objectNode, sharedLoadRequestId = AutoLoaderExtended.createDummyPallet(self.object.i3dFilename)
             end
 
             local entry = {
