@@ -1718,7 +1718,7 @@ function AutoLoaderExtended:updateActionText()
 
             elseif spec.currentMode == AutoLoaderExtended.MODE_UNLOAD then
                 if unloadInPlayerState then
-                    g_inputBinding:setActionEventText(actionEvent.actionEventId, g_i18n:getText("autoLoader_confirm"))
+                    g_inputBinding:setActionEventText(actionEvent.actionEventId, g_i18n:getText("autoLoader_confirm_0"))
                     showAction = true
                 end
             end

@@ -267,7 +267,7 @@
         - optional -
         unloadText         = unload text, default "autoLoader_unloadSide"
     -->
-    <autoLoader useTensionBelts="true" maxUnloadDistance="7" allowBaleToSetTime="250" unloadTime="150">
+    <autoLoader useTensionBelts="true" maxUnloadDistance="7" allowBaleToSetTime="25" unloadTime="150">
         <pickup linkNode="leftPickup"  filename="shared/pickup.xml" />
         <pickup linkNode="rightPickup" filename="shared/pickup.xml" />
 

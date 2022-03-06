@@ -1,28 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
-<modDesc descVersion="63">
+<modDesc descVersion="64">
     <author>Xentro</author>
+	<contributors>SOB-Modding</contributors>
     <version>1.0.0.0</version>
     <title>
-        <en>XT-2</en>
-        <de>XT-2</de>
+        <en>LIZARD XT-2</en>
     </title>
     <description>
-        <en><![CDATA[XT-2
+        <en><![CDATA[Bale trailer featuring an auto loading and auto unloading function to make your work easier, but you use it if you want.
+
 Capacity: 46 1.25m, 34 1.5m, 26 1.8m
 Price: 16000 €
 ]]>
         </en>
-        <de><![CDATA[XT-2
-Capacity: PLENTY!
-Price: 16000 €
+        <de><![CDATA[Ballenanhänger mit automatischer Lade- und Entladefunktion, um Ihnen die Arbeit zu erleichtern, aber Sie verwenden ihn, wenn Sie möchten.
+
+Kapazität: 46 1,25 m, 34 1,5 m, 26 1,8 m
+Preis: 16000 € 
 ]]>
         </de>
     </description>
+
     <iconFilename>icon_xt2.dds</iconFilename>
     <multiplayer supported="true" />
 
     <storeItems>
-        <storeItem xmlFilename="xt2.xml"/>
         <storeItem xmlFilename="xt2_autoLoader.xml"/>
     </storeItems>
     
@@ -51,39 +53,55 @@ Price: 16000 €
     		<en>Separator</en>
     		<de>Separator</de>
     	</text>
-      
+		
         <text name="autoLoader_activate">
     		<en>Activate auto loading</en>
+			<de>Automatisches Laden aktivieren </de>
     	</text>
         <text name="autoLoader_deactivate">
     		<en>Deactivate auto loading</en>
-    	</text>
-        <text name="autoLoader_activate_unload">
-    		<en>Start unloading</en>
-    	</text>
-        <text name="autoLoader_deactivate_unload">
-    		<en>Stop unloading</en>
-    	</text>
-        <text name="autoLoader_confirm">
-    		<en>Confirm unload placement</en>
-    	</text>
-        <text name="autoLoader_confirm_1">
-    		<en>Unload objects here</en>
+			<de>Automatisches Laden deaktivieren </de>
     	</text>
         <text name="autoLoader_unloadSide">
     		<en>Unload side (%s)</en>
+			<de>Entladeseite (%s) </de>
     	</text>
+        <text name="autoLoader_activate_unload">
+    		<en>Start unloading</en>
+			<de>Entladen beginnen </de>
+    	</text>
+        <text name="autoLoader_deactivate_unload">
+    		<en>Stop unloading</en>
+			<de>Stoppen Sie das Entladen </de>
+    	</text>
+        <text name="autoLoader_confirm_0">
+    		<en>Confirm unload placement</en>
+			<de>Bestätigen Sie die Entladeplatzierung </de>
+    	</text>
+        <text name="autoLoader_confirm_1">
+    		<en>Unload objects here</en>
+			<de>Entladen Sie hier Objekte </de>
+    	</text>
+
         <text name="autoLoader_warning_0">
-    		<en>Unloading area is colliding with something, unloading aren't allowed right now.</en>
+    		<en>Unloading area is colliding with something, unloading is currently not allowed.</en>
+			<de>Entladebereich kollidiert mit etwas, Entladen ist derzeit nicht erlaubt. </de>
     	</text>
         <text name="autoLoader_warning_1">
     		<en>Object's have been unloaded by someone else, aborting unload!</en>
+			<de>Objekte wurden von jemand anderem entladen, Entladen abgebrochen!</de>
     	</text>
         <text name="autoLoader_warning_2">
-    		<en>Warning: You are getting too far from unload location, current distance %.1f meter, will abort at %d meters </en>
+    		<en>Warning: You are getting too far from unload location, current distance %.1f meter, will abort at %d meters</en>
+			<de>Warnung: Sie entfernen sich zu weit vom Entladeort, aktuelle Entfernung %.1f Meter, wird bei %d Metern abgebrochen</de>
     	</text>
         <text name="autoLoader_warning_3">
     		<en>Unload location is too far away, aborting unload!</en>
+			<de>Entladeort ist zu weit entfernt, Entladevorgang abgebrochen! </de>
+    	</text>
+        <text name="autoLoader_warning_4">
+    		<en>Warning: This object cannot be loaded!</en>
+			<de>Warnung: Dieses Objekt kann nicht geladen werden!</de>
     	</text>
     </l10n>
 </modDesc>
