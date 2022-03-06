@@ -1,2 +1,4 @@
 # FS - AutoLoader
- Script which auto load bales / pallets as well as unload them.
+ This is an specialization which features
+  - Auto loading
+  - Auto unloading
