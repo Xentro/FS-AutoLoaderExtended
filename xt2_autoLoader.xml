@@ -33,8 +33,8 @@
 			
 			<joint component1="1" component2="2" node="frontCompJoint"      rotLimit="0 120 0" transLimit="0 0 0" />
 			<joint component1="2" component2="3" node="drawbarCompJoint"    rotLimit="40 0 0"  transLimit="0 0 0" />
-			<joint component1="1" component2="4" node="axleCompJoint_left"  rotLimit="0 0 22"  transLimit="0 0 0" />
-			<joint component1="1" component2="5" node="axleCompJoint_right" rotLimit="0 0 22"  transLimit="0 0 0" />
+			<joint component1="1" component2="4" node="axleCompJoint_left"  rotLimit="22 0 0"  transLimit="0 0 0" />
+			<joint component1="1" component2="5" node="axleCompJoint_right" rotLimit="22 0 0"  transLimit="0 0 0" />
         </components>
         <schemaOverlay attacherJointPosition="0 0" name="IMPLEMENT" />
     </base>
@@ -127,8 +127,27 @@
         <sharedLight linkNode="bigTriangle"    filename="$data/shared/assets/reflectors/lizard/bigTriangle.xml" />
         <sharedLight linkNode="rearLightLeft"  filename="$data/shared/assets/lights/lizard/rearLight05_left.xml" />
         <sharedLight linkNode="rearLightRight" filename="$data/shared/assets/lights/lizard/rearLight05_right.xml" />
+
+        <realLights>
+            <high>
+                <light node="backLight_1" lightTypes="0"/>
+                <brakeLight node="backLight_1" />
+                <turnLightLeft node="turnLightLeft" />
+                <turnLightRight node="turnLightRight" />
+            </high>
+        </realLights>
 	</lights>
 	
+    <connectionHoses>
+        <hose inputAttacherJointIndices="1" type="electric" node="electric" length="1.5" diameter="0.01" straighteningFactor="1">
+            <objectChange node="electric_detached" visibilityActive="false" visibilityInactive="true"/>
+        </hose>
+    </connectionHoses>
+
+    <dynamicallyLoadedParts>
+        <dynamicallyLoadedPart node="1|1" linkNode="electric_connector" filename="$data/shared/connectionHoses/connectors.i3d" />
+    </dynamicallyLoadedParts>
+
     <tensionBelts>
         <tensionBeltsConfigurations>
             <tensionBeltsConfiguration>
@@ -207,7 +226,7 @@
         <fillUnitConfigurations>
             <fillUnitConfiguration>
                 <fillUnits>
-                    <fillUnit unitTextOverride="$l10n_unit_bale" fillTypes="ROUNDBALE" capacity="1" showCapacityInShop="false" showOnHud="false"/>
+                    <fillUnit unitTextOverride="$l10n_unit_bale" fillTypes="ROUNDBALE SQUAREBALE" capacity="1" showCapacityInShop="false" showOnHud="false"/>
                 </fillUnits>
             </fillUnitConfiguration>
         </fillUnitConfigurations>
@@ -220,7 +239,7 @@
 	
     <ai>
 		<allowTurnBackward value="false"/>
-		<turningRadiusLimitation radius="15"/>
+		<turningRadiusLimitation rotationJointNode="attacherJoint" wheelIndices="1 2 3 4" />
         <agentAttachment jointNode="attacherJoint" rotCenterWheelIndices="1 2" width="2.7" height="2" length="2.7" lengthOffset="0" hasCollision="false"/>
         <agentAttachment jointNode="frontCompJoint" rotCenterWheelIndices="4 6" width="2.7" height="3.8" length="14" lengthOffset="3"/>
     </ai>
@@ -307,107 +326,112 @@
         <unload type="pallet" width="5" height="4" />
     </autoLoader>
 
-
     <i3dMappings>
         <i3dMapping id="xt2_main_component" node="0>" />
-        <i3dMapping id="xt2_vis" node="0>0" />
-        <i3dMapping id="decal" node="0>0|0" />
-        <i3dMapping id="tensionBelts" node="0>0|1" />
-        <i3dMapping id="startPoint01" node="0>0|1|0" />
-        <i3dMapping id="startPoint01End" node="0>0|1|0|0" />
-        <i3dMapping id="tensionBelt01Intersection01" node="0>0|1|0|1" />
-        <i3dMapping id="tensionBelt01Intersection02" node="0>0|1|0|2" />
-        <i3dMapping id="tensionBelt01Intersection03" node="0>0|1|0|3" />
-        <i3dMapping id="tensionBelt01Intersection04" node="0>0|1|0|4" />
-        <i3dMapping id="startPoint02" node="0>0|1|1" />
-        <i3dMapping id="startPoint02End" node="0>0|1|1|0" />
-        <i3dMapping id="tensionBelt02Intersection01" node="0>0|1|1|1" />
-        <i3dMapping id="tensionBelt02Intersection02" node="0>0|1|1|2" />
-        <i3dMapping id="tensionBelt02Intersection03" node="0>0|1|1|3" />
-        <i3dMapping id="tensionBelt02Intersection04" node="0>0|1|1|4" />
-        <i3dMapping id="startPoint03" node="0>0|1|2" />
-        <i3dMapping id="startPoint03End" node="0>0|1|2|0" />
-        <i3dMapping id="tensionBelt03Intersection01" node="0>0|1|2|1" />
-        <i3dMapping id="tensionBelt03Intersection02" node="0>0|1|2|2" />
-        <i3dMapping id="tensionBelt03Intersection03" node="0>0|1|2|3" />
-        <i3dMapping id="tensionBelt03Intersection04" node="0>0|1|2|4" />
-        <i3dMapping id="startPoint04" node="0>0|1|3" />
-        <i3dMapping id="startPoint04End" node="0>0|1|3|0" />
-        <i3dMapping id="tensionBelt04Intersection01" node="0>0|1|3|1" />
-        <i3dMapping id="tensionBelt04Intersection02" node="0>0|1|3|2" />
-        <i3dMapping id="tensionBelt04Intersection03" node="0>0|1|3|3" />
-        <i3dMapping id="tensionBelt04Intersection04" node="0>0|1|3|4" />
-        <i3dMapping id="startPoint05" node="0>0|1|4" />
-        <i3dMapping id="startPoint05End" node="0>0|1|4|0" />
-        <i3dMapping id="tensionBelt05Intersection01" node="0>0|1|4|1" />
-        <i3dMapping id="tensionBelt05Intersection02" node="0>0|1|4|2" />
-        <i3dMapping id="tensionBelt05Intersection03" node="0>0|1|4|3" />
-        <i3dMapping id="tensionBelt05Intersection04" node="0>0|1|4|4" />
-        <i3dMapping id="startPoint06" node="0>0|1|5" />
-        <i3dMapping id="startPoint06End" node="0>0|1|5|0" />
-        <i3dMapping id="tensionBelt06Intersection01" node="0>0|1|5|1" />
-        <i3dMapping id="tensionBelt06Intersection02" node="0>0|1|5|2" />
-        <i3dMapping id="tensionBelt06Intersection03" node="0>0|1|5|3" />
-        <i3dMapping id="tensionBelt06Intersection04" node="0>0|1|5|4" />
-        <i3dMapping id="startPoint07" node="0>0|1|6" />
-        <i3dMapping id="startPoint07End" node="0>0|1|6|0" />
-        <i3dMapping id="tensionBelt07Intersection01" node="0>0|1|6|1" />
-        <i3dMapping id="tensionBelt07Intersection02" node="0>0|1|6|2" />
-        <i3dMapping id="tensionBelt07Intersection03" node="0>0|1|6|3" />
-        <i3dMapping id="tensionBelt07Intersection04" node="0>0|1|6|4" />
-        <i3dMapping id="tensionBelt07Intersection05" node="0>0|1|6|5" />
-        <i3dMapping id="tensionBelt07Intersection06" node="0>0|1|6|6" />
-        <i3dMapping id="tensionBelt07Intersection07" node="0>0|1|6|7" />
-        <i3dMapping id="startPoint08" node="0>0|1|7" />
-        <i3dMapping id="startPoint08End" node="0>0|1|7|0" />
-        <i3dMapping id="tensionBelt08Intersection01" node="0>0|1|7|1" />
-        <i3dMapping id="tensionBelt08Intersection02" node="0>0|1|7|2" />
-        <i3dMapping id="tensionBelt08Intersection03" node="0>0|1|7|3" />
-        <i3dMapping id="tensionBelt08Intersection04" node="0>0|1|7|4" />
-        <i3dMapping id="tensionBelt08Intersection05" node="0>0|1|7|5" />
-        <i3dMapping id="tensionBelt08Intersection06" node="0>0|1|7|6" />
-        <i3dMapping id="tensionBelt08Intersection07" node="0>0|1|7|7" />
-        <i3dMapping id="startPoint09" node="0>0|1|8" />
-        <i3dMapping id="startPoint09End" node="0>0|1|8|0" />
-        <i3dMapping id="tensionBelt09Intersection01" node="0>0|1|8|1" />
-        <i3dMapping id="tensionBelt09Intersection02" node="0>0|1|8|2" />
-        <i3dMapping id="tensionBelt09Intersection03" node="0>0|1|8|3" />
-        <i3dMapping id="tensionBelt09Intersection04" node="0>0|1|8|4" />
-        <i3dMapping id="bigTriangle" node="0>0|2|0" />
-        <i3dMapping id="yellowRound_01" node="0>0|2|1" />
-        <i3dMapping id="yellowRound_02" node="0>0|2|2" />
-        <i3dMapping id="whiteRound_01" node="0>0|2|3" />
-        <i3dMapping id="whiteRound_02" node="0>0|2|4" />
-        <i3dMapping id="rearLightLeft" node="0>0|2|5" />
-        <i3dMapping id="rearLightRight" node="0>0|2|6" />
-        <i3dMapping id="configWall" node="0>1|0" />
-        <i3dMapping id="colPartWall_01" node="0>1|0|1" />
-        <i3dMapping id="colPartWall_02" node="0>1|0|2" />
-        <i3dMapping id="colPartWall_03" node="0>1|0|3" />
-        <i3dMapping id="colPartWall_04" node="0>1|0|4" />
-        <i3dMapping id="colPartWall_05" node="0>1|0|5" />
-        <i3dMapping id="colPartWall_06" node="0>1|0|6" />
-        <i3dMapping id="colPartWall_07" node="0>1|0|7" />
-        <i3dMapping id="colPartWall_08" node="0>1|0|8" />
-        <i3dMapping id="colPartWall_09" node="0>1|0|9" />
-        <i3dMapping id="colPartWall_10" node="0>1|0|10" />
-        <i3dMapping id="beltActivationTrigger" node="0>4" />
-        <i3dMapping id="leftPickup" node="0>5" />
-        <i3dMapping id="rightPickup" node="0>6" />
-        <i3dMapping id="roundBale125" node="0>7|0" />
-        <i3dMapping id="roundBale150" node="0>7|1" />
-        <i3dMapping id="roundBale180" node="0>7|2" />
-        <i3dMapping id="squareBale240" node="0>7|3" />
-        <i3dMapping id="unloadTrigger" node="0>8|0" />
-        <i3dMapping id="leftStartUnloadSpace" node="0>8|1" />
-        <i3dMapping id="rightStartUnloadSpace" node="0>8|2" />
+        <i3dMapping id="decal" node="0>0" />
+        <i3dMapping id="tensionBelts" node="0>1" />
+        <i3dMapping id="startPoint01" node="0>1|0" />
+        <i3dMapping id="startPoint01End" node="0>1|0|0" />
+        <i3dMapping id="tensionBelt01Intersection01" node="0>1|0|1" />
+        <i3dMapping id="tensionBelt01Intersection02" node="0>1|0|2" />
+        <i3dMapping id="tensionBelt01Intersection03" node="0>1|0|3" />
+        <i3dMapping id="tensionBelt01Intersection04" node="0>1|0|4" />
+        <i3dMapping id="startPoint02" node="0>1|1" />
+        <i3dMapping id="startPoint02End" node="0>1|1|0" />
+        <i3dMapping id="tensionBelt02Intersection01" node="0>1|1|1" />
+        <i3dMapping id="tensionBelt02Intersection02" node="0>1|1|2" />
+        <i3dMapping id="tensionBelt02Intersection03" node="0>1|1|3" />
+        <i3dMapping id="tensionBelt02Intersection04" node="0>1|1|4" />
+        <i3dMapping id="startPoint03" node="0>1|2" />
+        <i3dMapping id="startPoint03End" node="0>1|2|0" />
+        <i3dMapping id="tensionBelt03Intersection01" node="0>1|2|1" />
+        <i3dMapping id="tensionBelt03Intersection02" node="0>1|2|2" />
+        <i3dMapping id="tensionBelt03Intersection03" node="0>1|2|3" />
+        <i3dMapping id="tensionBelt03Intersection04" node="0>1|2|4" />
+        <i3dMapping id="startPoint04" node="0>1|3" />
+        <i3dMapping id="startPoint04End" node="0>1|3|0" />
+        <i3dMapping id="tensionBelt04Intersection01" node="0>1|3|1" />
+        <i3dMapping id="tensionBelt04Intersection02" node="0>1|3|2" />
+        <i3dMapping id="tensionBelt04Intersection03" node="0>1|3|3" />
+        <i3dMapping id="tensionBelt04Intersection04" node="0>1|3|4" />
+        <i3dMapping id="startPoint05" node="0>1|4" />
+        <i3dMapping id="startPoint05End" node="0>1|4|0" />
+        <i3dMapping id="tensionBelt05Intersection01" node="0>1|4|1" />
+        <i3dMapping id="tensionBelt05Intersection02" node="0>1|4|2" />
+        <i3dMapping id="tensionBelt05Intersection03" node="0>1|4|3" />
+        <i3dMapping id="tensionBelt05Intersection04" node="0>1|4|4" />
+        <i3dMapping id="startPoint06" node="0>1|5" />
+        <i3dMapping id="startPoint06End" node="0>1|5|0" />
+        <i3dMapping id="tensionBelt06Intersection01" node="0>1|5|1" />
+        <i3dMapping id="tensionBelt06Intersection02" node="0>1|5|2" />
+        <i3dMapping id="tensionBelt06Intersection03" node="0>1|5|3" />
+        <i3dMapping id="tensionBelt06Intersection04" node="0>1|5|4" />
+        <i3dMapping id="startPoint07" node="0>1|6" />
+        <i3dMapping id="startPoint07End" node="0>1|6|0" />
+        <i3dMapping id="tensionBelt07Intersection01" node="0>1|6|1" />
+        <i3dMapping id="tensionBelt07Intersection02" node="0>1|6|2" />
+        <i3dMapping id="tensionBelt07Intersection03" node="0>1|6|3" />
+        <i3dMapping id="tensionBelt07Intersection04" node="0>1|6|4" />
+        <i3dMapping id="tensionBelt07Intersection05" node="0>1|6|5" />
+        <i3dMapping id="tensionBelt07Intersection06" node="0>1|6|6" />
+        <i3dMapping id="tensionBelt07Intersection07" node="0>1|6|7" />
+        <i3dMapping id="startPoint08" node="0>1|7" />
+        <i3dMapping id="startPoint08End" node="0>1|7|0" />
+        <i3dMapping id="tensionBelt08Intersection01" node="0>1|7|1" />
+        <i3dMapping id="tensionBelt08Intersection02" node="0>1|7|2" />
+        <i3dMapping id="tensionBelt08Intersection03" node="0>1|7|3" />
+        <i3dMapping id="tensionBelt08Intersection04" node="0>1|7|4" />
+        <i3dMapping id="tensionBelt08Intersection05" node="0>1|7|5" />
+        <i3dMapping id="tensionBelt08Intersection06" node="0>1|7|6" />
+        <i3dMapping id="tensionBelt08Intersection07" node="0>1|7|7" />
+        <i3dMapping id="startPoint09" node="0>1|8" />
+        <i3dMapping id="startPoint09End" node="0>1|8|0" />
+        <i3dMapping id="tensionBelt09Intersection01" node="0>1|8|1" />
+        <i3dMapping id="tensionBelt09Intersection02" node="0>1|8|2" />
+        <i3dMapping id="tensionBelt09Intersection03" node="0>1|8|3" />
+        <i3dMapping id="tensionBelt09Intersection04" node="0>1|8|4" />
+        <i3dMapping id="bigTriangle" node="0>2|0" />
+        <i3dMapping id="yellowRound_01" node="0>2|1" />
+        <i3dMapping id="yellowRound_02" node="0>2|2" />
+        <i3dMapping id="whiteRound_01" node="0>2|3" />
+        <i3dMapping id="whiteRound_02" node="0>2|4" />
+        <i3dMapping id="rearLightLeft" node="0>2|5" />
+        <i3dMapping id="rearLightRight" node="0>2|6" />
+        <i3dMapping id="backLight_1" node="0>2|7|0" />
+        <i3dMapping id="backLight_2" node="0>2|7|0|0" />
+        <i3dMapping id="turnLightLeft" node="0>2|7|1" />
+        <i3dMapping id="turnLightRight" node="0>2|7|2" />
+        <i3dMapping id="configWall" node="0>4|0" />
+        <i3dMapping id="colPartWall_01" node="0>4|0|1" />
+        <i3dMapping id="colPartWall_02" node="0>4|0|2" />
+        <i3dMapping id="colPartWall_03" node="0>4|0|3" />
+        <i3dMapping id="colPartWall_04" node="0>4|0|4" />
+        <i3dMapping id="colPartWall_05" node="0>4|0|5" />
+        <i3dMapping id="colPartWall_06" node="0>4|0|6" />
+        <i3dMapping id="colPartWall_07" node="0>4|0|7" />
+        <i3dMapping id="colPartWall_08" node="0>4|0|8" />
+        <i3dMapping id="colPartWall_09" node="0>4|0|9" />
+        <i3dMapping id="colPartWall_10" node="0>4|0|10" />
+        <i3dMapping id="beltActivationTrigger" node="0>7" />
+        <i3dMapping id="leftPickup" node="0>8" />
+        <i3dMapping id="rightPickup" node="0>9" />
+        <i3dMapping id="roundBale125" node="0>10|0" />
+        <i3dMapping id="roundBale150" node="0>10|1" />
+        <i3dMapping id="roundBale180" node="0>10|2" />
+        <i3dMapping id="squareBale240" node="0>10|3" />
+        <i3dMapping id="unloadTrigger" node="0>11|0" />
+        <i3dMapping id="leftStartUnloadSpace" node="0>11|1" />
+        <i3dMapping id="rightStartUnloadSpace" node="0>11|2" />
         <i3dMapping id="frontComponent" node="1>" />
         <i3dMapping id="frontCompJoint" node="1>1" />
         <i3dMapping id="wheelNode_1_LeftFront" node="1>2" />
         <i3dMapping id="wheelNode_2_RightFront" node="1>3" />
         <i3dMapping id="drawbarComponent" node="2>" />
-        <i3dMapping id="attacherJoint" node="2>1" />
-        <i3dMapping id="drawbarCompJoint" node="2>2|0" />
+        <i3dMapping id="drawbarCompJoint" node="2>1" />
+        <i3dMapping id="attacherJoint" node="2>2" />
+        <i3dMapping id="electric" node="2>3|0" />
+        <i3dMapping id="electric_detached" node="2>3|0|0" />
+        <i3dMapping id="electric_connector" node="2>3|0|0|0" />
         <i3dMapping id="axleCompJoint_left" node="3>2" />
         <i3dMapping id="wheelNode_3_LeftMiddle" node="3>3" />
         <i3dMapping id="wheelNode_4_LeftBack" node="3>4" />
