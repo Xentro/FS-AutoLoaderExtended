@@ -284,7 +284,10 @@
         unloadTime         = unloading time between objects
 
         - optional -
-        unloadText         = unload text, default "autoLoader_unloadSide"
+        unloadText         = unload text,                                                       default "autoLoader_unloadSide"
+        changeModeButton   = Change mode between [Off, Loading and Confirm unload placement]    default "IMPLEMENT_EXTRA"
+        unloadButton       = Change to unload mode                                              default "IMPLEMENT_EXTRA2"
+        unloadSideButton   = Change unloading side                                              default "TOGGLE_TIPSIDE"
     -->
     <autoLoader useTensionBelts="true" maxUnloadDistance="7" allowBaleToSetTime="25" unloadTime="150">
         <pickup linkNode="leftPickup"  filename="shared/pickup.xml" />

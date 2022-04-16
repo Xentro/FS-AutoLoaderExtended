@@ -23,6 +23,9 @@ function AutoLoaderExtended.initSpecialization()
     schema:register(XMLValueType.INT,           "vehicle.autoLoader#allowBaleToSetTime", "How long after loading object before strapping load")
     schema:register(XMLValueType.INT,           "vehicle.autoLoader#unloadTime",         "Unloading time between objects")
     schema:register(XMLValueType.L10N_STRING,   "vehicle.autoLoader#unloadText",         "Unload text", "autoLoader_unloadSide")
+    schema:register(XMLValueType.STRING,        "vehicle.autoLoader#changeModeButton",    "Change mode Input action", "IMPLEMENT_EXTRA")
+    schema:register(XMLValueType.STRING,        "vehicle.autoLoader#unloadButton",        "Confirm unload Input action", "IMPLEMENT_EXTRA2")
+    schema:register(XMLValueType.STRING,        "vehicle.autoLoader#unloadSideButton",    "Change unload side Input action", "TOGGLE_TIPSIDE")
     
 	schema:register(XMLValueType.STRING,        "vehicle.autoLoader.pickup(?)#filename", "Shared pickup filename")
 	schema:register(XMLValueType.NODE_INDEX,    "vehicle.autoLoader.pickup(?)#linkNode", "Link node", "0>")
@@ -129,6 +132,10 @@ function AutoLoaderExtended:onLoad(savegame)
         }
     }
     
+    spec.changeModeButton       = InputAction[self.xmlFile:getValue("vehicle.autoLoader#changeModeButton", "IMPLEMENT_EXTRA")]
+    spec.unloadButton           = InputAction[self.xmlFile:getValue("vehicle.autoLoader#unloadButton",     "IMPLEMENT_EXTRA2")]
+    spec.changeUnloadSideButton = InputAction[self.xmlFile:getValue("vehicle.autoLoader#unloadSideButton", "TOGGLE_TIPSIDE")]
+
     spec.xmlLoadingHandles   = {}
 	spec.sharedLoadRequestId = {}
 
@@ -644,7 +651,7 @@ function AutoLoaderExtended:onUpdate(dt, isActiveForInput, isActiveForInputIgnor
                 DebugUtil.drawOverlapBox(x, y, z, xRot, yRot, zRot, width / 2, height / 2, length / 2, r, g, b)
 
                 if spec.unload.allowUnloadInput then
-                    g_currentMission.hud.contextActionDisplay:setContext(InputAction.IMPLEMENT_EXTRA, ContextActionDisplay.CONTEXT_ICON.TIP, g_i18n:getText("autoLoader_confirm_1"))
+                    g_currentMission.hud.contextActionDisplay:setContext(spec.changeModeButton, ContextActionDisplay.CONTEXT_ICON.TIP, g_i18n:getText("autoLoader_confirm_1"))
                 end
             end
         end
@@ -1650,7 +1657,7 @@ end
 function AutoLoaderExtended:actionEventStateCallback(actionName, inputValue, callbackState, isAnalog)
     local spec = self.spec_autoLoaderExtended
 
-    if actionName == InputAction.IMPLEMENT_EXTRA then       -- On / Off
+    if actionName == spec.changeModeButton then     -- On, Off and confirm unload placement
         if spec.currentMode == AutoLoaderExtended.MODE_INACTIVE then
             self:setMode(AutoLoaderExtended.MODE_LOAD)
 
@@ -1665,10 +1672,10 @@ function AutoLoaderExtended:actionEventStateCallback(actionName, inputValue, cal
             end
         end
     
-    elseif actionName == InputAction.IMPLEMENT_EXTRA2 then  -- Unload
+    elseif actionName == spec.unloadButton then             -- Unload
         self:setMode(AutoLoaderExtended.MODE_UNLOAD)
 
-    elseif actionName == InputAction.TOGGLE_TIPSIDE then    -- Toggle unload sides
+    elseif actionName == spec.changeUnloadSideButton then   -- Toggle unload sides
         self:setUnloadSide(self:getNextUnloadSide())
     end
 end
@@ -1682,14 +1689,14 @@ function AutoLoaderExtended:onRegisterActionEvents(isActiveForInput, isActiveFor
 		self:clearActionEventsTable(spec.actionEvents)
 
 		if isActiveForInput then
-            local state, actionEventId = self:addActionEvent(spec.actionEvents, InputAction.IMPLEMENT_EXTRA, self, AutoLoaderExtended.actionEventStateCallback, false, true, false, true, nil)
+            local state, actionEventId = self:addActionEvent(spec.actionEvents, spec.changeModeButton, self, AutoLoaderExtended.actionEventStateCallback, false, true, false, true, nil)
             g_inputBinding:setActionEventTextPriority(actionEventId, GS_PRIO_NORMAL)
 
-            state, actionEventId = self:addActionEvent(spec.actionEvents, InputAction.IMPLEMENT_EXTRA2, self, AutoLoaderExtended.actionEventStateCallback, false, true, false, true, nil)
+            state, actionEventId = self:addActionEvent(spec.actionEvents, spec.unloadButton, self, AutoLoaderExtended.actionEventStateCallback, false, true, false, true, nil)
             g_inputBinding:setActionEventTextPriority(actionEventId, GS_PRIO_NORMAL)
 
             if #spec.unload.sides > 1 then
-                state, actionEventId = self:addActionEvent(spec.actionEvents, InputAction.TOGGLE_TIPSIDE, self, AutoLoaderExtended.actionEventStateCallback, false, true, false, true, nil)
+                state, actionEventId = self:addActionEvent(spec.actionEvents, spec.changeUnloadSideButton, self, AutoLoaderExtended.actionEventStateCallback, false, true, false, true, nil)
                 g_inputBinding:setActionEventTextPriority(actionEventId, GS_PRIO_NORMAL)
             end
 
@@ -1703,7 +1710,7 @@ function AutoLoaderExtended:updateActionText()
 
 	if self.isClient then
         local unloadInPlayerState = spec.unload.current ~= nil and spec.unload.current.allowToggleUnloadSide
-		local actionEvent = spec.actionEvents[InputAction.IMPLEMENT_EXTRA]
+		local actionEvent = spec.actionEvents[spec.changeModeButton]
 
 		if actionEvent ~= nil then
             local showAction = false
@@ -1726,7 +1733,7 @@ function AutoLoaderExtended:updateActionText()
             g_inputBinding:setActionEventActive(actionEvent.actionEventId, showAction)
         end
 
-        local actionEvent = spec.actionEvents[InputAction.IMPLEMENT_EXTRA2]
+        local actionEvent = spec.actionEvents[spec.unloadButton]
         if actionEvent ~= nil then
             if spec.currentMode ~= AutoLoaderExtended.MODE_UNLOAD then
                 g_inputBinding:setActionEventText(actionEvent.actionEventId, g_i18n:getText("autoLoader_activate_unload"))
@@ -1737,7 +1744,7 @@ function AutoLoaderExtended:updateActionText()
             g_inputBinding:setActionEventActive(actionEvent.actionEventId, spec.unload.showUnloadInput)
         end
 
-        local actionEvent = spec.actionEvents[InputAction.TOGGLE_TIPSIDE]
+        local actionEvent = spec.actionEvents[spec.changeUnloadSideButton]
         if actionEvent ~= nil then
             local showAction = false
 
