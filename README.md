@@ -4,4 +4,4 @@
   - Auto unloading
 
 Being used in
-https://www.farming-simulator.com/mod.php?lang=en&country=se&mod_id=239688&title=fs2022
+- https://www.farming-simulator.com/mod.php?lang=en&country=se&mod_id=239688&title=fs2022
