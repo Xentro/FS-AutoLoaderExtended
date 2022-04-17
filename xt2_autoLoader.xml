@@ -296,7 +296,7 @@
         <!-- 
             type           = comparing the xml filename on object if anything of it matches
             nodeToChildren = this node has all our placement nodes stored in it
-            checkSize      = how big the "trigger" box should be, used to check if space is empty as well as find th object upon unloading.
+            checkSize      = how big the "trigger" box should be, used to check if space is empty as well as find th object upon unloading. Can be debuged by entering console command "gsVehicleDebug", green boxes is for this and they will change depending on which loadSpace is active.
                                 - too big   = no space found to load object and or too many objects unloaded per cycle
                                 - too small = objects can collide upon loading depending on placement of node
         -->
