@@ -135,7 +135,6 @@ function AutoLoaderExtended:onLoad(savegame)
     spec.changeModeButton       = InputAction[self.xmlFile:getValue("vehicle.autoLoader#changeModeButton", "IMPLEMENT_EXTRA")]
     spec.unloadButton           = InputAction[self.xmlFile:getValue("vehicle.autoLoader#unloadButton",     "IMPLEMENT_EXTRA2")]
     spec.changeUnloadSideButton = InputAction[self.xmlFile:getValue("vehicle.autoLoader#unloadSideButton", "TOGGLE_TIPSIDE")]
-
     spec.xmlLoadingHandles   = {}
 	spec.sharedLoadRequestId = {}
 
@@ -707,6 +706,8 @@ function AutoLoaderExtended:onUpdateTick(dt, isActiveForInput, isActiveForInputI
 
                                     if spec.load.currentSpaceIndex == pendingLoadSpaceIndex then
                                         self:setState(AutoLoaderExtended.STATE_LOAD_LOADING, pendingObject, foundSpaceLocation)
+                                    else
+                                        self:showWarningMessage(AutoLoaderExtended.WARNING_CANT_MIX)
                                     end
                                 end
                                 
@@ -1338,7 +1339,6 @@ function AutoLoaderExtended:getIsObjectValid(object, index, unload)
                     return true, i
                 end
             end
-
         end
     else
         -- We need to do some validation when entering unload trigger too
@@ -1770,6 +1770,7 @@ AutoLoaderExtended.WARNING_UNLOADED     = 1
 AutoLoaderExtended.WARNING_DISTANCE     = 2
 AutoLoaderExtended.WARNING_DISTANCE_MAX = 3
 AutoLoaderExtended.WARNING_INVALID      = 4
+AutoLoaderExtended.WARNING_CANT_MIX     = 5
 
 function AutoLoaderExtended:showWarningMessage(index, noEventSend, distance)
     if self:getIsActiveForInput(true) then
@@ -1778,7 +1779,8 @@ function AutoLoaderExtended:showWarningMessage(index, noEventSend, distance)
             g_i18n:getText("autoLoader_warning_1"), -- Abort, unloaded by someone else
             g_i18n:getText("autoLoader_warning_2"), -- Distance warning
             g_i18n:getText("autoLoader_warning_3"), -- Distance abort
-            g_i18n:getText("autoLoader_warning_4")  -- Invalid type
+            g_i18n:getText("autoLoader_warning_4"), -- Invalid type
+            g_i18n:getText("autoLoader_warning_5")  -- Cant mix loads between loadSpaces
         }
 
         g_currentMission:showBlinkingWarning(string.format(txt[index + 1], distance, self.spec_autoLoaderExtended.unload.distanceMax), 2000)

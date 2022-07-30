@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
-<modDesc descVersion="64">
+<modDesc descVersion="67">
     <author>Xentro</author>
     <contributors>SOB-Modding</contributors>
     <version>1.0.0.0</version>
@@ -105,6 +105,10 @@ Preis: 16000 €]]>
         <text name="autoLoader_warning_4">
             <en>Warning: This object cannot be loaded!</en>
             <de>Warnung: Dieses Objekt kann nicht geladen werden!</de>
+        </text>
+        <text name="autoLoader_warning_5">
+            <en>This object cannot be loaded with the current load, unload it and try again.</en>
+            <de>Dieses Objekt kann mit der aktuellen Ladung nicht geladen werden, entladen Sie es und versuchen Sie es erneut.</de>
         </text>
     </l10n>
 </modDesc>
